@@ -1,5 +1,8 @@
 Web-Dive-Toolset
 ===
+An interactive toolkit for learning and exploring web request layers, giving insight into DNS, TLS, headers, cookies, and HTML in a single unified interface or separate via cli.
+
+
     DNS Resolution: Translating a hostname into an IP address.
 
     Packet Logging: Simulating and displaying network traffic at a basic level.
