@@ -13,6 +13,13 @@ struct CallbackData {
     std::string tool_name;
 };
 
+// Add this after the existing CallbackData struct
+struct RunAllData {
+    GtkWidget* text_view;
+    GtkEntry* url_entry;
+    std::vector<std::string> tools;
+};
+
 // Function to run an external binary and capture output (stderr + stdout)
 std::string run_tool(const std::string& tool, const std::string& url) {
     // Redirect stderr (2) to stdout (1) with 2>&1
@@ -46,6 +53,28 @@ static void on_tool_clicked(GtkButton* button, gpointer user_data) {
     gtk_text_buffer_set_text(buffer, output.c_str(), -1);
 }
 
+// New callback for “Run All”
+static void on_run_all_clicked(GtkButton* button, gpointer user_data) {
+    RunAllData* data = static_cast<RunAllData*>(user_data);
+    const gchar* url = gtk_entry_get_text(data->url_entry);
+
+    GtkTextBuffer* buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(data->text_view));
+    gtk_text_buffer_set_text(buffer, "", -1);
+
+    std::string all_output;
+
+    for (const auto& tool : data->tools) {
+        // Header
+        all_output += "// " + tool + " =================================================\n\n";
+        // Tool output
+        all_output += run_tool(tool, url);
+        // Six newlines after each tool
+        all_output += "\n\n\n\n\n\n";
+    }
+
+    gtk_text_buffer_set_text(buffer, all_output.c_str(), -1);
+}
+
 int main(int argc, char* argv[]) {
     gtk_init(&argc, &argv);
 
@@ -71,6 +100,7 @@ int main(int argc, char* argv[]) {
     GtkWidget* button_box = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
     gtk_box_pack_start(GTK_BOX(vbox), button_box, FALSE, FALSE, 5);
 
+
     // Scrollable text view
     GtkWidget* scrolled_window = gtk_scrolled_window_new(nullptr, nullptr);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window),
@@ -80,6 +110,9 @@ int main(int argc, char* argv[]) {
     GtkWidget* text_view = gtk_text_view_new();
     gtk_text_view_set_editable(GTK_TEXT_VIEW(text_view), FALSE);
     gtk_container_add(GTK_CONTAINER(scrolled_window), text_view);
+    
+
+
 
     // Tool buttons
     std::vector<std::string> tools = {
@@ -94,6 +127,17 @@ int main(int argc, char* argv[]) {
         CallbackData* data = new CallbackData{ text_view, GTK_ENTRY(url_entry), tool };
         g_signal_connect(button, "clicked", G_CALLBACK(on_tool_clicked), data);
     }
+
+        // Create “Run All” button
+    GtkWidget* run_all_button = gtk_button_new_with_label("Run All");
+    gtk_box_pack_start(GTK_BOX(button_box), run_all_button, TRUE, TRUE, 2);
+
+    // Allocate RunAllData
+    RunAllData* run_all_data = new RunAllData{ text_view, GTK_ENTRY(url_entry), tools };
+
+
+    // Connect the callback
+    g_signal_connect(run_all_button, "clicked", G_CALLBACK(on_run_all_clicked), run_all_data);
 
     gtk_widget_show_all(window);
     gtk_main();
