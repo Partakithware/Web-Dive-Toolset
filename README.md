@@ -14,7 +14,7 @@ Web-Dive-Toolset
 
     TLS/SSL Diagnostics: Providing detailed information about the TLS session and server certificates, including the certificate chain.
 
-// GUI - Run them all in one place no CLI
+// GUI - Run them all in one place no CLI - (make sure each binary has been built and run this in the same directory) [It is not standalone]
 ``` g++ gui.cpp -o gui `pkg-config --cflags --libs gtk+-3.0` ```
 
 // CertChain
