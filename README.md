@@ -29,7 +29,7 @@ Well simply put I was just messing around. Make use of them or don't.
 
 To use each its quite simple
 
-./toolname url-you-want-to-get-data-from
+```./toolname url-you-want-to-get-data-from```
 
 Then it will output the data to console. Enjoy. (Simple Approach to Each libcurl)
 Test them yourself to see what data each will provide.
