@@ -2,22 +2,28 @@
 g++ certchain.cpp -o certchain -lcurl -lssl -lcrypto
 
 // DNS
-g++ dns.cpp -o dns
+
+```g++ dns.cpp -o dns```
 
 // Header
-g++ header.cpp -o header -lcurl
+
+```g++ header.cpp -o header -lcurl```
 
 // HTML Body - Full
-g++ html_body.cpp -o html_body -lcurl
+
+```g++ html_body.cpp -o html_body -lcurl```
 
 // Packets
-g++ packets.cpp -o packets -lcurl -lpcap -lresolv
+
+```g++ packets.cpp -o packets -lcurl -lpcap -lresolv```
 
 // Cookies 
-g++ cookies.cpp -o cookies -lcurl
+
+```g++ cookies.cpp -o cookies -lcurl```
 
 // TLS (Ehh)
-g++ tls.cpp -o tls -lcurl -lssl -lcrypto
+
+```g++ tls.cpp -o tls -lcurl -lssl -lcrypto```
 
 Well simply put I was just messing around. Make use of them or don't.
 
