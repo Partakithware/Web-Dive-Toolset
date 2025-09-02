@@ -1,5 +1,23 @@
+Web-Dive-Toolset
+===
+    DNS Resolution: Translating a hostname into an IP address.
+
+    Packet Logging: Simulating and displaying network traffic at a basic level.
+
+    Header Inspection: Fetching and displaying HTTP headers from a web server response.
+
+    Cookie Management: Capturing and reporting Set-Cookie headers.
+
+    Redirection Analysis: Tracing and reporting the redirection chain of a URL.
+
+    Content Retrieval: Downloading and displaying the main body of an HTML page.
+
+    TLS/SSL Diagnostics: Providing detailed information about the TLS session and server certificates, including the certificate chain.
+
+
 // CertChain
-g++ certchain.cpp -o certchain -lcurl -lssl -lcrypto
+
+```g++ certchain.cpp -o certchain -lcurl -lssl -lcrypto```
 
 // DNS
 
